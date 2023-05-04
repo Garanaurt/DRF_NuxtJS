@@ -2,6 +2,18 @@ from rest_framework import serializers
 from .models import Post
 from taggit_serializer.serializers import TagListSerializerField, TaggitSerializer
 from django.contrib.auth.models import User
+from taggit.models import Tag
+
+
+class TagSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Tag
+        fields = ("name",)
+        lookup_field = 'name'
+        extra_kwargs = {
+            'url': {'lookup_field': 'name'}
+        }
 
 
 class PostSerializer(TaggitSerializer, serializers.ModelSerializer):
